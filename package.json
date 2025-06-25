@@ -1,0 +1,24 @@
+{
+  "name": "express-blog-api-crud",
+  "version": "1.0.0",
+  "description": "Esercizio\r **Milestone 1**",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node --watch index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EdoardoPosfortunato/express-blog-api-crud.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EdoardoPosfortunato/express-blog-api-crud/issues"
+  },
+  "type": "module",
+  "homepage": "https://github.com/EdoardoPosfortunato/express-blog-api-crud#readme",
+  "dependencies": {
+    "express": "^5.1.0",
+    "mysql2": "^3.14.1"
+  }
+}
