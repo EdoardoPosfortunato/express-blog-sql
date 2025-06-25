@@ -5,13 +5,13 @@ import connection from "../db.js";
 // INDEX
 const index = (req, res) => {
 
-    const sql = 'SELECT * FROM `posts`'
+    const sql = 'SELECT * FROM posts'
 
     connection.query(sql, (err, results) => {
         if (err) {
             console.log("errore")
         } else {
-            res.json ({
+            res.json({
                 data: results,
                 count: results.length,
             })
@@ -93,30 +93,20 @@ const update = (req, res) => {
 //DESTROY 
 const destroy = (req, res) => {
 
-    const serieID = req.params.id;
+    const id = req.params.id
 
-    console.log(serieID)
+    const sql = 'DELETE FROM posts WHERE id = ?';
 
-    const index = serieComiche.findIndex((curSerie) => curSerie.id === serieID)
+    connection.query(sql, [id], (err, results) => {
+
+        if (err) return res.status(500).json({ error: 'Not Found Item to Delate' });
+        res.sendStatus(204)
+
+
+    })
 
     // console.log(serieComiche)
 
-    if (index === -1) {
-        res.status(404);
-        return res.json({
-            error: "Serie non trovata",
-        });
-    }
-
-
-    const eliminata = serieComiche.splice(index, 1);
-
-    console.log(serieComiche)
-
-    res.status(200).json({
-        commento: "La serie eliminata è",
-        data: eliminata
-    })
 
 }
 
