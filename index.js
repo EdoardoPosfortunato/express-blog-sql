@@ -1,5 +1,5 @@
 import express from "express"
-import serieRouter from "./routers/seriesRouter.js"
+import serieRouter from "./routers/nonnaRouter.js"
 import routeNotFound from "./MiddleWare/routeNotFound.js";
 import errorHandler from "./MiddleWare/errorHandler.js";
 
@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
     res.send('questa è la pagina iniziale')
 })
 
-app.use('/TVseries', serieRouter) // registrare il router
+app.use('/blog', serieRouter) // registrare il router
 
 // middlware route not found
 

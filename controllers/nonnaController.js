@@ -1,24 +1,21 @@
 import serieComiche from "../tvSeries.js"
+import connection from "../db.js";
 
 
 // INDEX
 const index = (req, res) => {
 
-    const genereFilter = req.query.genere;
+    const sql = 'SELECT * FROM `posts`'
 
-    let result = serieComiche;
-
-    if (genereFilter !== undefined) {
-
-        result = serieComiche.filter((curSerie) =>
-            curSerie.genere.includes(genereFilter)
-        );
-
-    }
-
-    res.json({
-        data: result,
-        count: result.length,
+    connection.query(sql, (err, results) => {
+        if (err) {
+            console.log("errore")
+        } else {
+            res.json ({
+                data: results,
+                count: results.length,
+            })
+        }
     });
 }
 
@@ -124,7 +121,7 @@ const destroy = (req, res) => {
 }
 
 
-const serieController = {
+const nonnaController = {
     index,
     show,
     store,
@@ -132,4 +129,4 @@ const serieController = {
     destroy
 }
 
-export default serieController
+export default nonnaController
