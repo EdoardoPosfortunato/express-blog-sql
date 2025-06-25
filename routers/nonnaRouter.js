@@ -12,12 +12,12 @@ router.get("/", nonnaController.index);
 router.get("/:id", nonnaController.show);
 
 
-// STORE
-router.post("/", nonnaController.store);
+// // STORE
+// router.post("/", nonnaController.store);
 
 
-// UPDATE
-router.put("/:id", nonnaController.update);
+// // UPDATE
+// router.put("/:id", nonnaController.update);
 
 
 // DESTROY

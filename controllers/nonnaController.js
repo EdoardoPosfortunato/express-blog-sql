@@ -1,4 +1,4 @@
-import serieComiche from "../tvSeries.js"
+
 import connection from "../db.js";
 
 
@@ -21,74 +21,85 @@ const index = (req, res) => {
 
 // SHOW
 const show = (req, res) => {
-    const serieID = parseInt(req.params.id);
-    const serie = serieComiche.find((curSerie) => curSerie.id == serieID);
-    res.json({
-        data: serie
-    });
-}
 
-//STORE
-const store = (req, res) => {
+    const id = req.params.id
 
-    console.log(req.body);
+    const sql = 'SELECT * FROM posts WHERE id = ?';
 
-    const nextID = String(parseInt(serieComiche[serieComiche.length - 1].id) + 1);
+    connection.query(sql, [id], (err, results) => {
 
-    const newSerie = {
-        id: nextID,
-        titolo: req.body.titolo,
-        anno: req.body.anno,
-        genere: req.body.genere,
-        regista: req.body.regista,
-        trama: req.body.trama,
-        img: req.body.img
-    };
+        if (err) {
+            console.log("errore")
+        } else if (results.length === 0) {
+            res.status(404).json({ error: 'Item not found' });
+        } else {
+            res.json(results[0]);
+        }
 
-    serieComiche.push(newSerie);
-
-    console.log(serieComiche);
-
-    res.status(201);
-    res.json(serieComiche)
-
-}
-
-//UPDATE
-const update = (req, res) => {
-    const serieID = req.params.id;
-
-    const serieModificata = serieComiche.find(curSerie => curSerie.id == serieID)
-
-    // console.log(serieModificata)
-
-    if (!serieModificata) {
-        res.status(404);
-
-        res.json({
-            error: 'Not Found',
-            message: 'Serie Non Trovata'
-        });
-
-    }
-
-    serieModificata.titolo = req.body.titolo;
-    serieModificata.anno = req.body.anno;
-    serieModificata.genere = req.body.genere;
-    serieModificata.regista = req.body.regista;
-    serieModificata.trama = req.body.trama;
-    serieModificata.img = req.body.img;
-
-    // res.json(serieModificata)
-    // console.log(serieComiche)
-    res.status(202)
-
-    res.json({
-        'serie modificata': serieModificata,
-        'nuove serie': serieComiche
     })
-
 }
+
+// //STORE
+// const store = (req, res) => {
+
+//     console.log(req.body);
+
+//     const nextID = String(parseInt(serieComiche[serieComiche.length - 1].id) + 1);
+
+//     const newSerie = {
+//         id: nextID,
+//         titolo: req.body.titolo,
+//         anno: req.body.anno,
+//         genere: req.body.genere,
+//         regista: req.body.regista,
+//         trama: req.body.trama,
+//         img: req.body.img
+//     };
+
+//     serieComiche.push(newSerie);
+
+//     console.log(serieComiche);
+
+//     res.status(201);
+//     res.json(serieComiche)
+
+// }
+
+// //UPDATE
+// const update = (req, res) => {
+//     const serieID = req.params.id;
+
+//     const serieModificata = serieComiche.find(curSerie => curSerie.id == serieID)
+
+//     // console.log(serieModificata)
+
+//     if (!serieModificata) {
+//         res.status(404);
+
+//         res.json({
+//             error: 'Not Found',
+//             message: 'Serie Non Trovata'
+//         });
+
+//     }
+
+//     serieModificata.titolo = req.body.titolo;
+//     serieModificata.anno = req.body.anno;
+//     serieModificata.genere = req.body.genere;
+//     serieModificata.regista = req.body.regista;
+//     serieModificata.trama = req.body.trama;
+//     serieModificata.img = req.body.img;
+
+//     // res.json(serieModificata)
+//     // console.log(serieComiche)
+//     res.status(202)
+
+//     res.json({
+//         'serie modificata': serieModificata,
+//         'nuove serie': serieComiche
+//     })
+
+// }
 
 //DESTROY 
 const destroy = (req, res) => {
@@ -114,8 +125,8 @@ const destroy = (req, res) => {
 const nonnaController = {
     index,
     show,
-    store,
-    update,
+    // store,
+    // update,
     destroy
 }
 
